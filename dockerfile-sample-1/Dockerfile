@@ -4,6 +4,9 @@
 #       to match the latest standards from docker hub... but it's doing the same thing as the video
 #       describes
 
+# Completely separate language
+# This is a minimal distribution of linux
+#each one of these stanzas is a layer in the image
 FROM debian:bookworm-slim
 # all images must have a FROM
 # usually from a minimal Linux distribution like debian or (even better) alpine
@@ -105,6 +108,8 @@ RUN set -x \
         apt-get purge -y --auto-remove \
         && rm -rf "$tempDir" /etc/apt/sources.list.d/temp.list; \
     fi \
+# DOCKER LOGS
+# LINKING NGINX LOGS TO DOCKER LOGS
 # forward request and error logs to docker log collector
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log \
@@ -117,6 +122,7 @@ RUN set -x \
 # COPY 30-tune-worker-processes.sh /docker-entrypoint.d
 # ENTRYPOINT ["/docker-entrypoint.sh"]
 
+# EXPOSING THESE PORTS ON DOCKER VIRTUAL NETWORK ONLY
 EXPOSE 80
 # expose these ports on the docker virtual network
 # you still need to use -p or -P to open/forward these ports on host

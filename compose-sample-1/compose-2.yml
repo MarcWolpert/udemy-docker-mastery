@@ -4,9 +4,11 @@
 
 services:
 
+  #each entry in the services is a container
   wordpress:
     image: wordpress
     ports:
+      #expose port 8080 on the host and map it to port 80 in the container
       - 8080:80
     environment:
       WORDPRESS_DB_HOST: mysql
