@@ -1,0 +1,32 @@
+#drupal:9 and postgres: 14
+version: '2'
+
+services:
+  CMS:
+    container_name: drupal
+    image: drupal:9
+    ports:
+      - '8080:80'
+    volumes:
+      - $PWD/modules:/var/www/html/modules
+      - $PWD/profiles:/var/www/html/profiles
+      - $PWD/themes:/var/www/html/themes
+    networks:
+      - drupal-postgres
+  database:
+    container_name: postgres
+    image: postgres:14
+    environment:
+      POSTGRES_DB: drupal
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+    ports:
+      - '5400:5432'
+    volumes:
+      - $PWD/db:/var/lib/postgresql/data
+    networks:
+      - drupal-postgres
+
+networks:
+  drupal-postgres:
+    driver: bridge
