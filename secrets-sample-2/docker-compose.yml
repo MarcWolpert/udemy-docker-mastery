@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 
 services:
   psql:
@@ -10,8 +10,10 @@ services:
       POSTGRES_PASSWORD_FILE: /run/secrets/psql_password
       POSTGRES_USER_FILE: /run/secrets/psql_user
 
+#where we define the secrets
 secrets:
   psql_user:
     file: ./psql_user.txt
+    #can do external : secret_name
   psql_password:
     file: ./psql_password.txt
